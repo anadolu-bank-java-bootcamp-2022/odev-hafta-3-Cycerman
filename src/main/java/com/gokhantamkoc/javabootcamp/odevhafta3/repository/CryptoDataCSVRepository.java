@@ -23,13 +23,15 @@ public class CryptoDataCSVRepository implements CSVRepository {
         InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(filename);
         // Bu alandan itibaren kodunuzu yazabilirsiniz
 
+        //Dosya okuma işlemi
         this.fin = new BufferedReader(new InputStreamReader(inputStream));
+        //İlk satırdaki başlıkları geçmek için 1 satır okuyoruz.
         fin.readLine();
 
         while (true){
             String line = getline();
-            if(line == null) break;
-            candles.add(getCandle(line));
+            if(line == null) break; //Dosya sonuna geldiyse döngüden çık
+            candles.add(getCandle(line)); //Candles listemizi dolduruyoruz
         }
 
         // Bu alandan sonra kalan kod'a dokunmayiniz.
@@ -37,7 +39,7 @@ public class CryptoDataCSVRepository implements CSVRepository {
     }
 
     public String getline() throws IOException {
-        return fin.readLine();
+        return fin.readLine(); //Satır oku
     }
 
     public Candle getCandle(String line) {
